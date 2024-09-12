@@ -7,7 +7,7 @@
         </button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="#">Nuevo</a></li>
-          <li><a class="dropdown-item" href="#">Borrar</a></li>
+          <li><a class="dropdown-item" href="#" (click)="deleteFiles()">Borrar</a></li>
         </ul>
       </div>
 </div>
@@ -27,7 +27,7 @@
             @for (file of files; track file.id){
                 <tr>
                     <td>
-                        <input type = "checkbox">
+                        <input type = "checkbox" (change)="onCheckboxChange(file, $event)">
                     </td>
                     <td>
                         @if(file.type == 0){
