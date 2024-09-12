@@ -1,27 +1,58 @@
 <div class="container-fluid">
     <div class="card  m-4">
         <div class="card-body">
-            <form>
+            <form #form = "ngForm" (ngSubmit)="sendForm(form)">
                 <div class = "row justify-content-center">
                     <div class = "col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                        </div> 
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input #nombre = "ngModel"
+                        [ngClass]="{'is-invalid': nombre.invalid  && (nombre.dirty || nombre.touched),'is-valid': nombre.valid }"
+                        type="text" class="form-control" name="nombre" placeholder="Ingrese el nombre"
+                        [(ngModel)]="nuevoItem.name" required minlength="3">
                     </div>
                     <div class = "col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
-                        </div>
+                        <label for="creation" class="form-label">Fecha</label>
+                        <input #creation = "ngModel" 
+                        [ngClass]="{'is-invalid': creation.invalid && (creation.dirty || creation.touched),'is-valid': creation.valid }"
+                        [(ngModel)]="nuevoItem.creation" required 
+                        type="date" class="form-control" name="creation">
                     </div>
                 </div>
-            
-            
-                <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                <div class = "row justify-content-center">
+                    <div class = "col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label for="tipoarchivo" class="form-label">Tipo de Archivo</label>
+                        <select #type = "ngModel"
+                            [ngClass]="{'is-invalid': type.value === 0 ,'is-valid': type.value > 0}"
+                            class="form-control" name="tipoarchivo"
+                            [(ngModel)]="nuevoItem.type" required>
+                            <option value = 0 disable selected>Seleccione un tipo de archivo</option> 
+                            <option value={{fileType.FILE}}>Archivo</option>
+                            <option value={{fileType.FOLDER}}>Carpeta</option>
+                        </select>
+                    </div>
+                    <div class = "col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label for="capeta" class="form-label">Carpeta</label>
+                        <select #parentId = "ngModel"
+                            class="form-control" name="carpeta"
+                            [(ngModel)]="nuevoItem.parentId">
+                        </select>
+                    </div>
+                </div>
+                <div class = "row justify-content-center">
+                    <div class = "col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label for="dueños" class="form-label">Dueños</label>
+                        <select #owners = "ngModel"
+                            class="form-control" name="dueños"
+                            [(ngModel)]="nuevoItem.owners">
+                            @for(owner of duenos; track owner.name ){
+                                <option value={{owner.name}}>{{owner.name}}</option>  
+                            }
+                        </select>                     
+                    </div>
+                    <div class = "col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label for="agregar" class="form-label">Agregar</label>
+                        <button type = "button" name = "agregar" class="btn btn-primary w-100">Agregar</button>
+                    </div>  
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

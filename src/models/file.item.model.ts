@@ -13,6 +13,7 @@ export interface FileOwner {
 }
 
 export enum FileType {
+  NOT_DEFINED,
   FOLDER,
   FILE
 }
